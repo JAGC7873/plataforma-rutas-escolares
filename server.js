@@ -4,12 +4,12 @@ const { GoogleGenAI } = require('@google/generative-ai');
 const app = express();
 app.use(express.json());
 
-// Inicializar la API de Gemini usando la variable de entorno
+// CORRECCIÓN AQUÍ: Inicializar la SDK correctamente usando process.env
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 // Ruta de prueba para verificar que el servidor esté activo
 app.get('/', (req, res) => {
-  res.send('Sistema de Rutas Escolaares Activo y Corriendo.');
+  res.send('Sistema de Rutas Escolares Activo y Corriendo.');
 });
 
 // Ruta de diagnóstico requerida por Render
