@@ -1,0 +1,18 @@
+{
+  "name": "plataforma-rutas-escolares",
+  "version": "1.0.0",
+  "description": "Sistema automatizado para la gestión de ausencias en rutas escolares",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "@google/generative-ai": "^0.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "Juan Andrés García Cuervo",
+  "license": "ISC"
+}
