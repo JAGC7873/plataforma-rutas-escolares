@@ -4,25 +4,25 @@ const { GoogleGenAI } = require('@google/generative-ai');
 const app = express();
 app.use(express.json());
 
-// Inicialización oficial de la SDK de Gemini usando la variable de entorno
+// INICIALIZACIÓN COMPATIBLE: Sin usar "new" para evitar errores de constructor
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-// Ruta de prueba para verificar que el servidor esté activo desde el navegador
+// Ruta de prueba para verificar que el servidor esté activo
 app.get('/', (req, res) => {
   res.send('Sistema de Rutas Escolares Activo y Corriendo.');
 });
 
-// Ruta de diagnóstico requerida por Render para verificar la salud del servidor
+// Ruta de diagnóstico requerida por Render
 app.get('/healthz', (req, res) => {
   res.sendStatus(200);
 });
 
-// Ruta principal (Webhook) que recibirá las ausencias desde Google Forms
+// Ruta principal que recibirá las ausencias desde Google Forms
 app.post('/webhook/ausencia', async (req, res) => {
   try {
     const datosFormulario = req.body;
     
-    // Configuración del modelo rápido de Gemini
+    // Configurar el modelo de inteligencia artificial
     const model = ai.getGenerativeModel({ model: 'gemini-3-flash-preview' });
     
     const prompt = `Analiza el siguiente reporte de ausencia escolar enviado por formulario y extrae de forma estructurada el nombre del estudiante, el grado, la ruta afectada y el motivo del reporte. Devuelve únicamente un objeto JSON válido con los campos: estudiante, grado, ruta, motivo.\n\nDatos del reporte: ${JSON.stringify(datosFormulario)}`;
@@ -42,7 +42,6 @@ app.post('/webhook/ausencia', async (req, res) => {
   }
 });
 
-// Puerto dinámico asignado por Render o el puerto 10000 por defecto
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`Servidor de rutas corriendo correctamente en el puerto ${PORT}`);
