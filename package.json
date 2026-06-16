@@ -1,14 +1,15 @@
 {
   "name": "plataforma-rutas-escolares",
   "version": "1.0.0",
-  "description": "Sistema automatizado para la gestión de ausencias en rutas escolares",
+  "description": "Sistema para la gestión de ausencias en rutas escolares",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.19.2",
-    "@google/generative-ai": "^0.1.0"
+    "@google/generative-ai": "^0.1.1"
   },
   "engines": {
     "node": ">=18.0.0"
