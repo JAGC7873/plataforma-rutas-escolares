@@ -4,25 +4,22 @@ import { GoogleGenAI } from '@google/generative-ai';
 const app = express();
 app.use(express.json());
 
-// INICIALIZACIÓN OFICIAL: Se importa e instancia la clase principal
+// ASÍ ES COMO SE INICIALIZA REALMENTE EN LA SDK OFICIAL:
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-// Ruta de prueba para verificar que el servidor esté activo
 app.get('/', (req, res) => {
   res.send('Sistema de Rutas Escolares Activo y Corriendo.');
 });
 
-// Ruta de diagnóstico requerida por Render
 app.get('/healthz', (req, res) => {
   res.sendStatus(200);
 });
 
-// Ruta principal que recibirá las ausencias desde Google Forms
 app.post('/webhook/ausencia', async (req, res) => {
   try {
     const datosFormulario = req.body;
     
-    // Configurar el modelo rápido de Gemini
+    // Usando el modelo correcto de la SDK
     const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' });
     
     const prompt = `Analiza el siguiente reporte de ausencia escolar enviado por formulario y extrae de forma estructurada el nombre del estudiante, el grado, la ruta afectada y el motivo del reporte. Devuelve únicamente un objeto JSON válido con los campos: estudiante, grado, ruta, motivo.\n\nDatos del reporte: ${JSON.stringify(datosFormulario)}`;
