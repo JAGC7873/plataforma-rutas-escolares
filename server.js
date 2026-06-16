@@ -4,10 +4,10 @@ import { GoogleGenAI } from '@google/generative-ai';
 const app = express();
 app.use(express.json());
 
-// Inicialización limpia y directa de la API de Gemini
+// INICIALIZACIÓN OFICIAL: Se importa e instancia la clase principal
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-// Ruta de prueba para verificar que el servidor esté vivo
+// Ruta de prueba para verificar que el servidor esté activo
 app.get('/', (req, res) => {
   res.send('Sistema de Rutas Escolares Activo y Corriendo.');
 });
