@@ -4,7 +4,7 @@ import { GoogleGenAI } from '@google/generative-ai';
 const app = express();
 app.use(express.json());
 
-// CONFIGURACIÓN REAL DE LA SDK: Se llama directamente a la función de la librería
+// ASÍ SE INICIALIZA DE VERDAD EN LA SDK OFICIAL:
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 app.get('/', (req, res) => {
@@ -19,7 +19,7 @@ app.post('/webhook/ausencia', async (req, res) => {
   try {
     const datosFormulario = req.body;
     
-    // Acceso correcto al modelo
+    // Obtener el modelo de forma correcta
     const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' });
     
     const prompt = `Analiza el siguiente reporte de ausencia escolar enviado por formulario y extrae de forma estructurada el nombre del estudiante, el grado, la ruta afectada y el motivo del reporte. Devuelve únicamente un objeto JSON válido con los campos: estudiante, grado, ruta, motivo.\n\nDatos del reporte: ${JSON.stringify(datosFormulario)}`;
